@@ -261,7 +261,7 @@ hr{
       crossorigin="anonymous"></script>
 
    <script type="text/javascript"
-      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5ac85505ce522df380d0dd7be25581d0&libraries=services"></script>
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=?=services"></script>
    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
    <script src="../resources/js/likeplace.js"></script>
 </body>

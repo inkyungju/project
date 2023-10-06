@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="commuMapper">
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*) FROM commu 
+		WHERE u_delete = 'n'
+		AND userTitle LIKE '%'||#{searchTxt}||'%'
+	</select>
+	
+	<!-- DTO랑 똑같음, 근데 얘는 DB 컬럼이랑 DTO랑 맞춰주는거 -->
+	<resultMap type="commu" id="commuResultSet">
+		<result column="c_board_No" property="c_board_No"></result>
+		<result column="memberNo" property="memberNo"></result>
+		<result column="userTitle" property="userTitle"></result>
+		<result column="userContent" property="userContent"></result>
+		<result column="memberName" property="memberName"></result>
+		<result column="views" property="views"></result>
+		<result column="category" property="category"></result>
+		<result column="createDate" property="createDate"></result>
+		<result column="uploadPath" property="uploadPath"></result>
+		<result column="uploadName" property="uploadName"></result>
+		<result column="uploadOriginName" property="uploadOriginName"></result>
+		<result column="updateDate" property="updateDate"></result>
+		<result column="updateWriter" property="updateWriter"></result>
+		<result column="deleteDate" property="deleteDate"></result>
+		<result column="u_delete" property="u_delete"></result>
+	</resultMap>
+	
+	<select id="selectListAll" resultMap="commuResultSet">
+					SELECT *
+					FROM Commu co
+					WHERE u_delete = 'n'
+					ORDER BY createDate DESC	
+	</select>
+	
+	<insert id="insertBoard" parameterType="Commu">
+		INSERT INTO commu(c_board_No,
+						 memberNo,
+						 category, 
+						 userTitle, 
+						 userContent, 
+						 memberName, 
+						 createDate, 
+						 views, 
+						 UPLOADPATH, 
+						 UPLOADNAME, 
+						 UPLOADORIGINNAME)
+				  VALUES(seq_c_board_no.NEXTVAL, 
+				  		 #{memberNo},
+				  		 #{category}, 
+				  		 #{userTitle}, 
+				  		 #{userContent}, 
+				  		 #{memberName}, 
+				  		 SYSDATE, 
+				  		 0, 
+				  		 #{uploadPath}, 
+				  		 #{uploadName}, 
+				  		 #{uploadOriginName})
+	</insert>
+	
+	<select id="detailBoard" resultMap="commuResultSet">
+				SELECT category, 
+					   userTitle, 
+					   userContent, 
+					   views, 
+					   m.memberNo,
+					   m.memberName, 
+					   createDate, 
+					   UPLOADPATH, 
+					   UPLOADNAME 
+				FROM commu co
+				LEFT JOIN MENUPASS m ON co.memberNo = m.memberNo 
+				WHERE c_board_No = #{c_board_No}	
+	</select>
+	
+	<update id="countBoard" parameterType="Commu"> <!-- 보드타입의 파라메터를 받는다 -->
+		UPDATE commu SET views = #{views} 
+					 WHERE c_board_No = #{c_board_No}
+	</update>
+	
+	<update id="updateBoard" parameterType="Commu">
+		UPDATE commu SET category = #{category}, 
+						userTitle = #{userTitle},
+						userContent = #{userContent},
+						updateDate = SYSDATE
+
+				  WHERE c_board_No = #{c_board_No}	
+	</update>
+	
+	<update id="updateUploadCommu" parameterType="Commu">
+		UPDATE commu SET category = #{category}, 
+						userTitle = #{userTitle},
+						userContent = #{userContent},
+						updateDate = SYSDATE,
+						uploadpath = #{uploadPath},
+						uploadname = #{uploadName},
+						uploadoriginname = #{uploadOriginName}
+				  WHERE c_board_No = #{c_board_No}	
+	</update>
+	
+	<delete id="deleteBoard" parameterType="Commu">
+				UPDATE commu SET u_DELETE = 'y'
+		 		WHERE c_board_No = #{c_board_No}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+

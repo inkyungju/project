@@ -1,0 +1,717 @@
+@font-face {
+   font-family: 'IBMPlexSansKR-Regular';
+   src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff')format('woff');
+   font-weight: normal;
+   font-style: normal;
+}
+
+
+
+.map_wrap, .map_wrap * {
+	margin: 0;
+	padding: 0;
+	font-family: 'Malgun Gothic', dotum, '나눔', sans-serif;
+	font-size: 10px;
+}
+
+.map_wrap a, .map_wrap a:hover, .map_wrap a:active {
+	color: #000;
+	text-decoration: none;
+}
+
+.map_wrap {
+	display: flex;
+	position: relative;
+	width: 90%;
+	height: 500px;
+	right: -5px;
+	justify-content: space-around;
+	border-radius: 30px;
+}
+
+#menu_wrap {
+	position: absolute;
+	top: 50;
+	left: 0;
+	bottom: 0;
+	width: 200px;
+	margin: 10px 0 30px 10px;
+	padding: 15px;
+	overflow-y: auto;
+	background: rgba(255, 255, 255, 0.7);
+	z-index: 1;
+	font-size: 12px;
+}
+
+.bg_white {
+	background: #fff;
+}
+
+#menu_wrap hr {
+	display: block;
+	height: 1px;
+	border: 0;
+	border-top: 1px solid #5F5F5F;
+	margin: 3px 0;
+}
+
+#menu_wrap .option {
+	text-align: center;
+}
+
+#menu_wrap .option p {
+	margin: 10px 0;
+}
+
+#menu_wrap .option button {
+	margin-left: 5px;
+}
+
+#menu_wrap {
+	margin-bottom: 20px;
+}
+
+#placesList {
+	border: 1px solid #F2F2F2;
+    font-size: 20px;
+    border-radius: 7px;
+    color: #585858;
+    background: white;
+}
+
+#placesList li {
+	list-style: none;
+}
+
+#placesList .item:not(:last-child) {
+	position: relative;
+	border-bottom: 1px solid #F2F2F2;
+	font-size: 16px;
+	overflow: hidden;
+	cursor: pointer;
+	min-height: 65px;
+}
+
+#placesList .item span {
+	display: block;
+	margin-top: 1px;
+	font-size: 12px;
+}
+
+#placesList .item h5, #placesList .item .info {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	font-size: 13px;
+	white-space: nowrap;
+}
+
+#placesList .item .info {
+	padding: 10px 10px 6px 53px;
+	font-size: 15px;
+	color: #585858;
+}
+
+#placesList .info .gray {
+	color: #8a8a8a;
+	font-size: 14px;
+}
+
+#placesList .info .jibun {
+	padding-left: 26px;
+	font-size: 11px;
+	background:
+		url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png)
+		no-repeat;
+}
+
+#placesList .info .tel {
+	color: #848484;
+	font-size: 14px;
+}
+
+#placesList .item .markerbg {
+	float: left;
+	position: absolute;
+	width: 35px;
+	height: 37px;
+	margin: 10px 0 0 10px;
+	background:
+		url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png)
+		no-repeat;
+}
+
+#placesList .item:hover {
+	background-color: #FAFAFA;
+	color: #000;
+}
+
+#placesList .item .marker_1 {
+	background-position: 0 -10px;
+}
+
+#placesList .item .marker_2 {
+	background-position: 0 -56px;
+}
+
+#placesList .item .marker_3 {
+	background-position: 0 -102px
+}
+
+#placesList .item .marker_4 {
+	background-position: 0 -148px;
+}
+
+#placesList .item .marker_5 {
+	background-position: 0 -194px;
+}
+
+#placesList .item .marker_6 {
+	background-position: 0 -240px;
+}
+
+#placesList .item .marker_7 {
+	background-position: 0 -286px;
+}
+
+#placesList .item .marker_8 {
+	background-position: 0 -332px;
+}
+
+#placesList .item .marker_9 {
+	background-position: 0 -378px;
+}
+
+#placesList .item .marker_10 {
+	background-position: 0 -423px;
+}
+
+#placesList .item .marker_11 {
+	background-position: 0 -470px;
+}
+
+#placesList .item .marker_12 {
+	background-position: 0 -516px;
+}
+
+#placesList .item .marker_13 {
+	background-position: 0 -562px;
+}
+
+#placesList .item .marker_14 {
+	background-position: 0 -608px;
+}
+
+#placesList .item .marker_15 {
+	background-position: 0 -654px;
+}
+
+#pagination {
+	margin: 505px 0 0 73%;
+	position: absolute;
+	text-align: center;
+	font-size: 10px;
+}
+
+#pagination a {
+	display: inline-block;
+	margin-right: 15px;
+	font-size: 16px;
+	color: #A4A4A4;
+	transition: font-weight 0.3s;
+	position: relative;
+}
+
+#pagination .on {
+	cursor: default;
+	font-size: 16px;
+	color: #0070d2;
+}
+
+#pagination a:hover, #pagination a.active {
+	color: #0070d2;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+	overflow-y: auto;
+	max-height: calc(100vh - 100px);
+	position: relative;
+	margin: 50px auto;
+	padding: 20px;
+	width: 80%;
+	height: 80%;
+	max-width: 600px;
+	border-top: 0px solid #ccc;
+	background-color: #FFFFFF;
+	border-radius: 10px;
+}
+
+.close-btn2 {
+	margin-top: -10px;
+	margin-right: 5px;
+	color: #aaa;
+	float: right;
+	right: 35px;
+	font-size: 20px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.close-btn:hover {
+	color: #2E2E2E;
+}
+
+#writeReviewButton {
+	outline: none;
+	cursor: pointer;
+	padding: 12 18px;
+	background-color: #fff;
+	border-radius: 1.0rem;
+	border: 1px solid #6E6E6E;
+	color: #6E6E6E;
+	font-size: 14px;
+	line-height: 30px;
+	font-weight: 450;
+	text-align: center;
+	transition: background-color 0.3s;
+}
+
+#writeReviewButton:hover {
+	background-color: #fff;
+	color: #2E2E2E;
+	border: 1px solid #2E2E2E;
+}
+
+#writeReviewButton img {
+	max-width: 13px;
+	max-height: 13px;
+	margin-right: 5px;
+}
+
+#reviewTextArea {
+	margin-right: 50px;
+	width: 79%;
+	padding: 10px;
+	border: 1px solid #F2F2F2;
+	border-radius: 5px;
+	resize: vertical;
+	color: #6E6E6E;
+	background-color: #FAFAFA;
+}
+
+#submitReviewButton {
+	display: block;
+	margin-top: 10px;
+	padding: 5px 11px;
+	background-color: #fff;
+	color: #0070d2;
+	border: 1px solid #0070d2;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 13px;
+	transition: background-color 0.3s, color 0.3s;
+	position: absolute;
+	bottom: 30px;
+	right: 30px;
+}
+
+#submitReviewButton:hover {
+	background-color: #0070d2;
+	color: #fff;
+}
+
+#imageUploadInput {
+	padding: 10px 15px;
+	background-color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	margin-left: -10px;
+}
+
+.info-container {
+	border: 1px solid #F2F2F2;
+	padding: 15px;
+	border-radius: 10px;
+	margin: 10px 0;
+	margin-top: 20px;
+	max-height: 160px;
+	background: #E9E9E9;
+}
+
+.review-entry {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	border: 1px solid #E6E6E6;
+	border-radius: 10px;
+	padding: 10px;
+	position: relative;
+	min-height: 100px;
+	height: 120PX;
+	width: 106%;
+	margin-left: -15px;
+}
+
+.review-content {
+	margin-left: 10px;
+	top: 50px;
+	font-size: 13px;
+	color: #333;
+	display: flex;
+	align-items: center;
+}
+
+.review-info-image-container {
+	display: flex;
+	align-items: center;
+	margin-right: 10px;
+	margin-top:23px;
+	width: 524px;
+}
+
+.review-info {
+	margin-right: 5px;
+	font-weight: bold;
+	margin-bottom: -5px;
+	color: #424242;
+}
+
+.review-image img {
+	max-width: 20px;
+	max-height: 20px;
+	width: auto;
+	height: auto;
+	margin-right: 5px;
+}
+
+.button-container {
+	display: flex;
+	justify-content: flex-end;
+	width: 526px;
+	margin-top: 100px;
+}
+
+.edit-button {
+	background-color: #fff;
+	font-size: 11px;
+	margin-right: -20px;
+	color: #0070d2;
+	border: 1px solid #0070d2;
+	padding: 5px 10px;
+	cursor: pointer;
+	border-radius: 4px;
+}
+
+.edit-button:hover {
+	background-color: #0070d2;
+	color: #fff;
+}
+
+.delete-button {
+	background-color: #fff;
+	font-size: 11px;
+	margin-left: 27px;
+	color: #B40404;
+	border: 1px solid #B40404;
+	padding: 5px 10px;
+	border-radius: 4px;
+}
+
+.delete-button:hover {
+	background-color: #B40404;
+	color: #fff;
+}
+
+#editReviewForm {
+	height: 250px;
+	width: 500px;
+	max-width: 500%;
+	margin-left: 300px;
+	margin-top: 150px;
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+
+}
+
+#updateReviewForm {
+	width: 580px;
+	height: 500px;
+}
+
+#updateButton {
+	background-color: #fff;
+	font-size: 12px;
+	margin-top: 122px;
+	margin-left: -160px;
+	color: #6E6E6E;
+	border: 1px solid #6E6E6E;
+	position: absolute;
+	padding: 6px 12px;
+	border-radius: 0.5rem;
+	cursor: pointer;
+}
+
+#updateButton:hover {
+	background-color: #fff;
+	color: #0070d2;
+	border: 1px solid #0070d2;
+}
+
+#cancelButton {
+	background-color: #fff;
+	font-size: 12px;
+	margin-top: 122px;
+	margin-left: -100px;
+	color: #6E6E6E;
+	border: 1px solid #6E6E6E;
+	position: absolute;
+	padding: 6px 12px;
+	border-radius: 0.5rem;
+	cursor: pointer;
+}
+
+#cancelButton:hover {
+	background-color: #fff;
+	color: #B40404;
+	border: 1px solid #B40404;
+}
+
+#deleteReviewForm {
+	width: 350px;
+	margin-left: 500px;
+	margin-top: 250px;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+	text-align: center;
+}
+
+#deleteReviewForm button {
+	background-color: #fff;
+	margin-top: 20px;
+	margin-right: 50px;
+	font-size: 12px;
+	color: #6E6E6E;
+	border: 1px solid #6E6E6E;
+	padding: 6px 12px;
+	border-radius: 0.5rem;
+	cursor: pointer;
+}
+
+#deleteReviewForm p {
+	color: #6E6E6E;
+	font-size: 14px;
+}
+
+#deleteReview {
+	background-color: #fff;
+	margin-bottom: 20px;
+	margin-top: 5px;
+	margin-right: 50px;
+	font-size: 12px;
+	color: #6E6E6E;
+	padding: 6px 12px;
+	border-radius: 0.5rem;
+	cursor: pointer;
+}
+
+#deleteReview:hover {
+	background-color: #fff;
+	color: #0070d2;
+	border: 1px solid #0070d2;
+}
+
+#cancelDeleteButton {
+	background-color: #fff;
+	font-size: 12px;
+	margin-top: 130px;
+	margin-left: -40px;
+	color: #6E6E6E;
+	border: 1px solid #6E6E6E;
+	position: absolute;
+	padding: 6px 12px;
+	border-radius: 0.5rem;
+	cursor: pointer;
+}
+
+#cancelDeleteButton:hover {
+	background-color: #fff;
+	color: #B40404;
+	border: 1px solid #B40404;
+}
+
+.reviews-container {
+	max-height: 400px;
+	overflow: auto;
+	padding: 10px 15px 15px;
+}
+
+.review {
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+}
+
+.star-icon.selected {
+	font-size: 18px;
+	color: #0070d2;
+	border-radius: 50%;
+}
+
+.star-icon {
+	font-size: 24px;
+	color: #ccc;
+	padding: 2px;
+	cursor: pointer;
+	border-radius: 50%;
+}
+
+.star-selected {
+	font-size: 18px;
+	color: #0070d2;
+	border-radius: 50%;
+	margin-left: 352px;
+}
+
+#ratingContainer .star-icon {
+	font-size: 24px;
+	color: #ccc;
+	padding: 2px;
+	cursor: pointer;
+	border-radius: 50%;
+}
+
+#ratingContainer .star-icon.selected {
+	font-size: 24px;
+	color: #0070d2;
+	border-radius: 50%;
+}
+
+h3 {
+	color: #424242;
+	font-weight: 400;
+}
+
+
+#map{
+	margin-left: 10%;
+    width: 60%;
+    position: relative;
+    overflow: hidden;
+    background: url(http://t1.daumcdn.net/mapjsapi/images/bg_tile.png);
+}
+
+    /* 카드 자동 슬라이더 효과 */
+
+.card-container{
+  height: 270px;
+  margin: auto;
+  margin-left: 133px;
+  width: 75%;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+}
+
+.slide-track{
+  display:flex;
+  width: calc(300px * 12);
+  animation: scroll 30s linear infinite;
+}
+
+.slide-track:hover{
+  animation-play-state:paused;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(calc(-300px * 6));
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.slide{
+  height: 270px;
+  width: 300px;
+  display: flex;
+  align-items:center;
+  padding: 15px;
+  perspective:100px;
+  flex-wrap: wrap;
+}
+
+.train-card{
+  width:100%;
+  height: 100%;
+  transition:transform 1s;
+  border-radius:10px;
+  overflow:hidden;
+  background-size: cover;
+  
+}
+
+.train-card:hover{
+  transform:translateZ(18px);
+}
+
+/* 슬라이더 그라데이션 그림자 */
+
+.slider::before,
+.slider::after {
+  background:linear-gradient(to right, #f6f4f2 0%,
+  rgba(255,255,255,0) 100%);
+  content:'';
+  height:100%;
+  position:absolute;
+  width:15%;
+  z-index:2;
+}
+
+.slider::before{
+  left:0;
+  top:0;
+}
+
+.slider::after{
+  right:0;
+  top:0;
+  transform: rotateZ(180deg);
+}
+
+.card-section{
+	font-family: 'IBMPlexSansKR-Regular';
+	color: white;
+	margin: 0px;
+	display: flex;
+}
+
+.help{
+	margin-left: 118px;
+	color: #414581;
+}
+hr{
+    margin: auto;
+    width: 80%;
+    padding: 10px;
+    color: #414581;
+}

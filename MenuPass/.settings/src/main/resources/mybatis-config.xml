@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
+	
+	<typeAliases>
+		<typeAlias type="kr.co.menupass.recommend.dto.Recommend" alias="recommend" />
+		<typeAlias type="kr.co.menupass.member.dto.memberDto" alias="member" />
+		<typeAlias type="kr.co.menupass.likeplace.dto.LikePlace" alias="likeplace" />
+		<typeAlias type="kr.co.menupass.commu.dto.Commu" alias="commu" />
+		<typeAlias type="kr.co.menupass.map.dto.MapList" alias="maplist" />
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="/mappers/recommend/recommend-mapper.xml" />
+		<mapper resource="/mappers/member/membermapper.xml" />
+		<mapper resource="/mappers/likeplace/LikePlace-mapper.xml" />
+		<mapper resource="/mappers/commu/commu-mapper.xml" />
+		<mapper resource="/mappers/map/map-mapper.xml" />
+	</mappers>
+	
+</configuration>

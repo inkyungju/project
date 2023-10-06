@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapListMapper">
+    <select id="selectListCount" resultType="_int">
+        SELECT COUNT(*) FROM RESTAURANT
+    </select>
+
+   <!--  DTO랑 똑같음, 근데 얘는 DB 컬럼이랑 DTO랑 맞춰주는거 -->
+    <resultMap type="maplist" id="mapResultSet">
+        <result column="RES_ID" property="restaurantId" />
+        <result column="RES_NAME" property="restaurantName" />
+        <result column="RES_ADDRESS" property="restaurantAddress" />
+        <result column="RES_PHONE" property="restaurantPhone" />
+        <result column="RES_CREATE_DATE" property="restaurantCreateDate" />
+        <result column="REV_REVIEW" property="restaurantReview" />
+        <result column="REV_ID" property="reviewId" />
+        <result column="REV_RATING" property="restaurantRating" />
+        <result column="RES_CUISINE" property="restaurantCuisine" />
+        <result column="RES_HOURS" property="restaurantHours" />
+        <result column="MEMBERNO" property="memberNo" />
+        <result column="MEMBERNAME" property="memberName" />
+        <result column="UPLOADPATH" property="uploadPath" />
+        <result column="UPLOADNAME" property="uploadName" />
+        <result column="UPLOADORIGINNAME" property="uploadOriginName" />
+       
+    </resultMap>
+
+   
+    <!-- 페이징 처리를 위해 LIMIT와 OFFSET을 추가 -->
+    <select id="selectListAll" resultMap="mapResultSet">
+        SELECT * FROM RESTAURANT
+        ORDER BY RES_CREATE_DATE DESC
+	</select>
+    
+     <!-- 리뷰, 별점 가져오는 쿼리 추가 -->
+    <select id="reviewsByRestaurantName" resultMap="mapResultSet"> <!-- ID는 DAO와 동일 -->
+       SELECT REV_REVIEW, REV_RATING, menu.MEMBERNO, menu.membername, REV_ID, res.res_name, rev.uploadname, res.res_id FROM REVIEWS rev 
+	   LEFT JOIN restaurant res ON rev.res_id = res.res_id
+	   LEFT JOIN MENUPASS menu ON rev.memberNo = menu.memberNo
+       WHERE RES_NAME = #{restaurantName}
+    </select>
+    
+    <!-- 별점 -->
+    <select id="restaurantAvgRating" resultMap="mapResultSet">
+    	SELECT REV_RATING FROM REVIEWS rev
+    	LEFT JOIN restaurant res ON rev.res_id = res.res_id
+    	WHERE RES_NAME = #{restaurantName}
+    </select>
+    
+    
+     <!-- 리뷰 삽입/이미지 삽입 -->
+  	<insert id="insertReview" parameterType="maplist">
+	    INSERT INTO REVIEWS (REV_ID, REV_REVIEW, REV_RATING, RES_ID, MEMBERNO, 
+	    					 UPLOADPATH, UPLOADNAME, UPLOADORIGINNAME)
+	    VALUES (reviews_seq.NEXTVAL, #{restaurantReview}, #{restaurantRating},
+			    #{restaurantId}, #{memberNo}, #{uploadPath}, #{uploadName}, #{uploadOriginName})
+	</insert>
+
+	<insert id="reviewInsert" parameterType="maplist">
+	 	INSERT INTO restaurant (RES_ID, RES_NAME, RES_ADDR, RES_PHONE, RES_CUISINE)
+	 	
+	 	VALUES(seq_r_restaurant.NEXTVAL, #{restaurantName}, #{restaurantAddress}, #{restaurantPhone},
+	 			#{restaurantCuisine})
+	 </insert>
+
+	
+	<select id="getRestaurantId" resultMap="mapResultSet">
+	    SELECT RES_ID FROM RESTAURANT
+	    WHERE RES_NAME = #{restaurantName}
+	</select>
+	
+	 <select id="getReviewId" resultMap="mapResultSet">
+        SELECT * FROM REVIEWS WHERE REV_ID = #{reviewId}
+    </select>
+    
+    <!-- 수정하기 -->
+    <update id="updateReview" parameterType="maplist">
+    UPDATE REVIEWS SET REV_REVIEW = #{restaurantReview}
+    WHERE REV_ID = #{reviewId}
+	</update>
+	
+	<!-- 후기 삭제 --> 
+	<delete id="deleteReview" parameterType="_int">
+    DELETE FROM REVIEWS WHERE REV_ID = #{reviewId}
+	</delete>
+	
+</mapper>

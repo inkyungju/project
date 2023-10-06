@@ -7,13 +7,19 @@
 	</settings>
 	
 	<typeAliases>
-		<typeAlias type="kr.co.menupass.likeplace.dto.LikePlace" alias="likePlace"/>
+		<typeAlias type="kr.co.menupass.recommend.dto.Recommend" alias="recommend" />
+		<typeAlias type="kr.co.menupass.member.dto.memberDto" alias="member" />
+		<typeAlias type="kr.co.menupass.likeplace.dto.LikePlace" alias="likeplace" />
+		<typeAlias type="kr.co.menupass.commu.dto.Commu" alias="commu" />
+		<typeAlias type="kr.co.menupass.map.dto.MapList" alias="maplist" />
 	</typeAliases>
 	
 	<mappers>
-		<mapper resource="/mappers/likePlace/LikePlace-mapper.xml" />
-	
+		<mapper resource="/mappers/recommend/recommend-mapper.xml" />
+		<mapper resource="/mappers/member/membermapper.xml" />
+		<mapper resource="/mappers/likeplace/LikePlace-mapper.xml" />
+		<mapper resource="/mappers/commu/commu-mapper.xml" />
+		<mapper resource="/mappers/map/map-mapper.xml" />
 	</mappers>
-	
 	
 </configuration>

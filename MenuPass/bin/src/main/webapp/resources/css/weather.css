@@ -1,0 +1,51 @@
+        /* 배경 스타일 */
+
+        #weather {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background-size: cover;        
+        font-family: Arial, sans-serif;
+    }
+
+    /* 날씨 정보 카드 스타일 */
+    .weather-card {
+        text-align: center;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: rgb(64 63 63 / 25%);
+        color: white;
+        margin: 8px;
+        width: 140px; /* 가로 크기 조절 */
+        height: 140px; 
+      
+    }
+    
+.weather-card1 {
+    display: flex;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgb(255 192 152 / 45%);
+    color: #42457d;
+    margin: 8px;
+    width: 140px;
+    height: 140px;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: space-evenly;
+    font-size: 18px;
+}
+    
+    p{
+    margin: 0;
+    }
+  
+  .menu-button{
+      background: #f5c39e;
+    border: 1px solid white;
+    margin-bottom: 14px
+  }

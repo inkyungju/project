@@ -14,7 +14,7 @@ import lombok.ToString;
 public class LikePlace {
 	private int index;
 	private int likePlace_id;
-	private int member_no;
+	private int memberNo;
 
 
 	private String place_name;
@@ -26,6 +26,4 @@ public class LikePlace {
 
 	private String address_name;
 	private String phone;
-
-	
 }

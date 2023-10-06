@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="memberMapper">
+	<resultMap id="memberDtoResultMap"
+		type="kr.co.menupass.member.dto.memberDto">
+		<result column="memberNo" property="memberNo" />
+		<result column="memberName" property="memberName" />
+		<result column="memberPw" property="memberPw" />
+		<result column="memberEmail" property="memberEmail" />
+	</resultMap>
+	<select id="login" resultMap="memberDtoResultMap">
+		SELECT * FROM
+		MENUPASS
+		WHERE
+		memberEmail =#{memberEmail}
+	</select>
+	<select id="memberEmail"
+		parameterType="String" resultType="_int">
+		SELECT COUNT(*) FROM 
+		MENUPASS
+		WHERE memberEmail = #{email}
+
+	</select>
+
+	<insert id="singup" parameterType="member">
+		INSERT INTO MENUPASS (
+		MEMBERNO,
+		MEMBERNAME,
+		MEMBERPW,
+		MEMBEREMAIL
+		)
+		VALUES(user_seq.nextval,
+		#{memberName},
+		#{memberPw},
+		#{memberEmail})
+	</insert>
+	<!-- 회원정보 수정 -->
+	<update id="updateout" parameterType="member">
+		UPDATE MENUPASS SET
+		MEMBERNAME = #{memberName},
+		MEMBEREMAIL = #{memberEmail},
+		MEMBERPW = #{memberPw}
+		where MEMBERNO = #{memberNo}
+	</update>
+
+	<select id="updatein" resultMap="memberDtoResultMap">
+		SELECT * FROM
+		MENUPASS
+		WHERE
+		memberNo =#{memberNo}
+	</select>
+
+</mapper>

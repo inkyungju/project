@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="recommendMapper">
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*) FROM RecommendBoard
+		
+	</select>
+	
+	<!-- DTO랑 똑같음, 근데 얘는 DB 컬럼이랑 DTO랑 맞춰주는거 -->
+	<resultMap type="recommend" id="recommendResultSet">
+		<result column="board_No" property="board_No"></result>
+		<result column="memberNo" property="memberNo"></result>
+		<result column="category_Food" property="category_Food"></result>
+		<result column="recommend_Title" property="recommend_Title"></result>
+		<result column="recommend_Content" property="recommend_Content"></result>
+		<result column="memberName" property="memberName"></result>
+		<result column="createDate" property="createDate"></result>
+		<result column="views" property="views"></result>
+		<result column="recommend_Comment" property="recommend_Comment"></result>
+		<result column="recommend_Grade" property="recommend_Grade"></result>
+		<result column="uploadPath" property="uploadPath"></result>
+		<result column="uploadName" property="uploadName"></result>
+		<result column="uploadOriginName" property="uploadOriginName"></result>
+		<result column="recommend_delete" property="recommend_delete"></result>
+		<result column="restaurant_Name" property="restaurant_Name"></result>
+		<result column="restaurant_Addr" property="restaurant_Addr"></result>
+	</resultMap>
+	
+	<select id="selectListAll" resultMap="recommendResultSet" parameterType="map">
+				    SELECT re.*, m.memberName
+					FROM RecommendBoard re
+					JOIN MENUPASS m ON re.memberNo = m.memberNo
+					WHERE re.recommend_delete = 'n'
+					ORDER BY re.createDate DESC
+
+</select>
+	
+	<insert id="insertRecommend" parameterType="recommend">
+		INSERT INTO RecommendBoard (board_No,
+						 memberNo, 
+						 category_Food, 
+						 recommend_Title, 
+						 recommend_Content, 
+						 memberName,
+						 recommend_Grade, 
+						 createDate, 
+						 views, 
+						 uploadPath, 
+						 uploadName,
+						 uploadOriginName,
+						 restaurant_Name,
+    					 restaurant_Addr
+						 )
+				  VALUES(seq_board_No.NEXTVAL, 
+				  		 #{memberNo},
+				  		 #{category_Food}, 
+				  		 #{recommend_Title}, 
+				  		 #{recommend_Content}, 
+				  		 #{memberName},
+				  		 #{recommend_Grade}, 
+				  		 SYSDATE, 
+				  		 0, 
+				  		 #{uploadPath}, 
+				  		 #{uploadName}, 
+				  		 #{uploadOriginName},
+				  		 #{restaurant_Name},
+				  		 #{restaurant_Addr}
+				  		 )
+	</insert>
+	
+	<select id="detailRecommend" resultMap="recommendResultSet">
+				SELECT	 board_No,
+						 r.memberNo, 
+						 m.memberName,
+						 category_Food, 
+						 recommend_Title, 
+						 recommend_Content, 
+						 recommend_Grade, 
+						 createDate, 
+						 views, 
+						 uploadPath, 
+						 uploadName,
+						 uploadOriginName,
+						 restaurant_Name,
+    					 restaurant_Addr
+				FROM RecommendBoard r
+				LEFT JOIN MENUPASS m ON r.memberNo = m.memberNo 
+				WHERE board_No = #{board_No}	
+	</select>
+	
+	<update id="countRecommend" parameterType="recommend">
+		UPDATE RecommendBoard SET views = #{views} 
+					 WHERE board_No = #{board_No}
+	</update>
+	
+	<update id="updateRecommend" parameterType="recommend">
+		UPDATE RecommendBoard SET category_Food = #{category_Food}, 
+						 recommend_Title = #{recommend_Title}, 
+						 recommend_Content = #{recommend_Content}, 
+						 memberName = #{memberName},
+						 recommend_Grade = #{recommend_Grade}, 
+						 createDate = SYSDATE, 
+						 views = #{views},
+						 restaurant_Name = #{restaurant_Name},
+    					 restaurant_Addr = #{restaurant_Addr}
+				  WHERE board_No = #{board_No}	
+	</update>
+	
+	<update id="updateUploadRecommend" parameterType="recommend">
+		UPDATE RecommendBoard SET category_Food = #{category_Food}, 
+						 recommend_Title = #{recommend_Title}, 
+						 recommend_Content = #{recommend_Content}, 
+						 memberName = #{memberName},
+						 recommend_Grade = #{recommend_Grade}, 
+						 createDate = SYSDATE, 
+						 views = #{views},
+						 uploadPath = #{uploadPath}, 
+						 uploadName = #{uploadName},
+						 uploadOriginName = #{uploadOriginName},
+						 restaurant_Name = #{restaurant_Name},
+    					 restaurant_Addr = #{restaurant_Addr}
+					WHERE board_No = #{board_No}
+	</update>
+	
+	
+	<delete id="deleteRecommend" parameterType="recommend">
+				UPDATE RecommendBoard SET recommend_delete = 'y'
+		 						  WHERE board_No = #{board_No}
+	</delete>
+	
+</mapper>

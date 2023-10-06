@@ -1,6 +1,8 @@
- package kr.co.menupass.likeplace.controller;
+package kr.co.menupass.likeplace.controller;
 
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import kr.co.menupass.likeplace.dto.LikePlace;
 import kr.co.menupass.likeplace.service.LikePlaceService;
@@ -26,34 +29,32 @@ public class LikePlaceController {
     public LikePlaceController(LikePlaceService likePlaceService) {
         this.likePlaceService = likePlaceService;
     }
-    
+
     // 나의 장소 리스트를 보여주는 요청을 처리하는 메서드
     @RequestMapping("/map")
     public String MyPlaceList() {
-    	
-        return "home";
+        return "likeplace/likeplace";
     }
 
     @PostMapping("/addPlace")
     @ResponseBody
-    public String addPlace(LikePlace likePlace
+    public String addPlace(LikePlace likePlace,
+                           HttpSession session
                            ) {
-        likePlace.setMember_no(123); // 자기 껏인 경우에는 member_no를 세팅하도록 가정
         
-   
+        likePlace.setMemberNo((int)session.getAttribute("memberNo"));
+        
         boolean isLiked = likePlaceService.isLikedPlace(likePlace);
         
         int result = 0;
 
         if (isLiked) {
-
-        	result = likePlaceService.removeLikedPlace(likePlace);
+        	System.out.println("remove");
+            result = likePlaceService.removeLikedPlace(likePlace);
         } else {
-
+        	System.out.println("add");
             result = likePlaceService.addLikedPlace(likePlace);
         }
-        
-
 
         if (result > 0) {
             return "success";
@@ -61,11 +62,10 @@ public class LikePlaceController {
             return "cancel";
         }
     }
-
-    
-    //찜하기 가져오기
+  //찜하기 가져오기
     @PostMapping("/select")
-    public ResponseEntity<List<LikePlace>> checkLikedPlacesByUser(@RequestBody List<LikePlace> data) {
+    public ResponseEntity<List<LikePlace>> checkLikedPlacesByUser(@RequestBody List<LikePlace> data,
+    															  HttpSession session) {
 
     	LikePlace likePlace = new LikePlace();
     	
@@ -78,7 +78,8 @@ public class LikePlaceController {
     	}
     	
 
-    	likePlace.setMember_no(123);
+    	likePlace.setMemberNo((int)session.getAttribute("memberNo"));
+    	
         List<LikePlace> likedPlaces = likePlaceService.getLikedPlacesByUser(likePlace);
      
 

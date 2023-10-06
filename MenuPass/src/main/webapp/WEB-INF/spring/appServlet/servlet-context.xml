@@ -26,7 +26,20 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-
+	
+	<beans:bean id="multipartResolver" 
+				class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></beans:bean>
+	
+	
+<!-- 	<interceptors>
+		<interceptor>
+			<mapping path="/**" />
+			
+			<exclude-mapping path="/**/*.css" />
+			<exclude-mapping path="/**/*.js" />
+			<beans:ref bean="accessInterceptor" />
+		</interceptor>
+	</interceptors> -->
 	
 	<context:component-scan base-package="kr.co.menupass" />
 </beans:beans>

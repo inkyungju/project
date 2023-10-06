@@ -18,7 +18,11 @@ public class LikePlaceDao {
         this.sqlSession = sqlSession;
     }
 
-
+//    // 모든 찜한 장소 목록을 가져오는 메서드
+//    public List<LikePlace> getAllLikedPlaces() {
+//        return sqlSession.selectList("LikePlaceMapper.selectAllLikedPlaces");
+//    }
+    
     // 특정 장소가 이미 찜되었는지 확인하는 메서드
     public boolean isLikedPlace(LikePlace likePlace) {
         int count = sqlSession.selectOne("LikePlaceMapper.countLikedPlace", likePlace);
@@ -28,7 +32,8 @@ public class LikePlaceDao {
     // 장소를 찜목록에 추가하는 메서드
     public int addLikedPlace(LikePlace likePlace) {
     	
- 
+    	System.out.println("dao" + likePlace.getX());
+    	System.out.println("dao" + likePlace.getY());
         return sqlSession.insert("LikePlaceMapper.addLikedPlace", likePlace);
     }
 

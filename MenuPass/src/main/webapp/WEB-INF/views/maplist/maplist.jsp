@@ -81,7 +81,7 @@
 		
 		<%@ include file="../common/footer.jsp"%>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=45ecddf7050d9fc95c60036d46a1bf14&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=?=services"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
